@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gesture Stage</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2330d5c8'/%3E%3Cpath d='M16 3a13 13 0 0 1 11.3 19.4L16 16z' fill='%23ff4f9a'/%3E%3Cpath d='M16 16 6.4 25.1A13 13 0 0 1 16 3z' fill='%23f7c948'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="stage-shell" aria-label="Gesture controlled visual stage">
+      <div class="camera-card" aria-label="Camera preview">
+        <video id="camera" class="camera-feed" playsinline muted></video>
+        <span id="cameraPlaceholder">Camera preview</span>
+      </div>
+      <canvas id="stage" aria-label="Interactive particle stage"></canvas>
+
+      <section class="topbar" aria-label="System status">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Gesture Stage</span>
+        </div>
+        <div class="status-stack">
+          <span id="cameraStatus" class="status-pill">Camera idle</span>
+          <span id="modelStatus" class="status-pill">Model loading</span>
+          <span id="modeStatus" class="status-pill">Mode idle</span>
+          <span id="fpsStatus" class="status-pill">0 FPS</span>
+        </div>
+      </section>
+
+      <section class="gesture-panel" aria-label="Current gesture">
+        <p class="panel-label">Current gesture</p>
+        <h1 id="gestureName">Ready</h1>
+        <p id="gestureHint">Start the camera, raise one hand, and let the stage react.</p>
+      </section>
+
+      <section class="control-panel" aria-label="Controls">
+        <button id="startButton" type="button">Start camera</button>
+        <button id="stopButton" type="button" disabled>Stop</button>
+        <button id="demoButton" type="button">Demo pulse</button>
+      </section>
+
+      <section class="gesture-strip" aria-label="Supported gestures">
+        <button class="gesture-chip is-active" type="button" data-demo="open_palm">
+          <span class="chip-icon">Palm</span>
+          <span>Open</span>
+        </button>
+        <button class="gesture-chip" type="button" data-demo="fist">
+          <span class="chip-icon">Fist</span>
+          <span>Hold</span>
+        </button>
+        <button class="gesture-chip" type="button" data-demo="peace">
+          <span class="chip-icon">V</span>
+          <span>Peace</span>
+        </button>
+        <button class="gesture-chip" type="button" data-demo="point">
+          <span class="chip-icon">1</span>
+          <span>Point</span>
+        </button>
+        <button class="gesture-chip" type="button" data-demo="pinch">
+          <span class="chip-icon">OK</span>
+          <span>Pinch</span>
+        </button>
+        <button class="gesture-chip" type="button" data-demo="frame_drag">
+          <span class="chip-icon">Box</span>
+          <span>Frame</span>
+        </button>
+        <button class="gesture-chip" type="button" data-demo="orb_flight">
+          <span class="chip-icon">Orb</span>
+          <span>Orb</span>
+        </button>
+        <button class="gesture-chip" type="button" data-demo="menu_open">
+          <span class="chip-icon">Menu</span>
+          <span>Menu</span>
+        </button>
+      </section>
+
+      <p class="privacy-note">Camera processing stays in this browser.</p>
+
+      <aside class="debug-hud" id="debugHud" aria-label="Debug information" hidden>
+        <div class="debug-hud-header">Debug HUD</div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Mode</span>
+          <span class="debug-value" id="debugMode">--</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Gesture</span>
+          <span class="debug-value" id="debugGesture">--</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Hands</span>
+          <span class="debug-value" id="debugHands">0</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Confidence</span>
+          <span class="debug-value" id="debugConfidence">--</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Menu dwell</span>
+          <span class="debug-value" id="debugDwell">--</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Menu item</span>
+          <span class="debug-value" id="debugMenuItem">--</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Orb charge</span>
+          <span class="debug-value" id="debugOrbCharge">--</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Orb distance</span>
+          <span class="debug-value" id="debugOrbDistance">--</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Cooldown</span>
+          <span class="debug-value" id="debugCooldown">--</span>
+        </div>
+        <div class="debug-hud-row">
+          <span class="debug-label">Last transition</span>
+          <span class="debug-value" id="debugLastTransition">--</span>
+        </div>
+        <div class="debug-hud-log" id="debugTransitionLog"></div>
+      </aside>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
